@@ -712,7 +712,9 @@ export default defineComponent<TableProps<DefaultRecordType>>({
               }}
               onScroll={onScroll}
               ref={scrollBodyRef}
-              class={classNames(`${prefixCls}-body`)}
+              class={classNames(`${prefixCls}-body`, {
+                [`${prefixCls}-body-scroll-y`]: scrollYStyle.value.overflowY === 'scroll' && !horizonScroll.value
+              })}
             >
               <TableComponent
                 style={{
