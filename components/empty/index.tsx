@@ -70,7 +70,7 @@ const Empty: EmptyType = (props, { slots = {}, attrs }) => {
             {...restProps}
           >
             <div class={classNames(`${prefixCls}-info`, {
-              line: image === infoEmptyImg
+              [`${prefixCls}-line`]: image === infoEmptyImg
             })}>
               <div class={`${prefixCls}-image`} style={imageStyle}>
                 {imageNode}
