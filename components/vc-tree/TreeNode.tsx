@@ -176,7 +176,12 @@ export default defineComponent({
     });
     expose(dragNodeEvent);
     const onSelectorDoubleClick = (e: MouseEvent) => {
-      const { onNodeDoubleClick } = context.value;
+      const { onNodeDoubleClick, expandAction } = context.value;
+
+      if (expandAction === 'doubleclick' || expandAction === 'dblclick') {
+        onExpand(e);
+      }
+
       onNodeDoubleClick(e, eventData.value);
     };
 
@@ -203,8 +208,12 @@ export default defineComponent({
 
     const onSelectorClick = (e: MouseEvent) => {
       // Click trigger before select/check operation
-      const { onNodeClick } = context.value;
+      const { onNodeClick, expandAction } = context.value;
       onNodeClick(e, eventData.value);
+
+      if (expandAction === 'click') {
+        onExpand(e);
+      }
 
       if (isSelectable.value) {
         onSelect(e);

@@ -1112,7 +1112,8 @@ export default defineComponent({
         onScroll,
         direction,
         ellipsis,
-        getEllipsisPopupContainer
+        getEllipsisPopupContainer,
+        expandAction
       } = props;
 
       const { class: className, style } = attrs;
@@ -1163,6 +1164,7 @@ export default defineComponent({
             dragging: draggingNodeKey !== null,
             indent: indent.value,
             direction,
+            expandAction,
             dropIndicatorRender,
 
             loadData,

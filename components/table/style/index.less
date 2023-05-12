@@ -26,7 +26,7 @@
   position: relative;
   color: @table-header-color;
   font-size: @table-font-size;
-  line-height: 16px;
+  line-height: 22px;
   background: @table-bg;
   border-radius: @table-border-radius-base;
 
@@ -55,7 +55,7 @@
 
   tfoot > tr > th,
   tfoot > tr > td {
-    padding: 7.5px @table-padding-horizontal;
+    padding: @table-padding-vertical @table-padding-horizontal;
   }
 
   &-cell-ellipsis {
@@ -151,7 +151,7 @@
       > td {
         border-bottom: @border-width-base @border-style-base @table-border-color;
         transition: background 0.3s;
-        padding: 7.5px @table-padding-horizontal;
+        padding: @table-padding-vertical @table-padding-horizontal;
 
         // ========================= Nest Table ===========================
         > .@{table-prefix-cls}-wrapper:only-child,
@@ -188,8 +188,6 @@
 
         &:last-of-type:not(.@{ant-prefix}-table-striped) {
           td {
-            padding-top: @table-padding-vertical - 0.5;
-            padding-bottom: @table-padding-vertical - 0.5;
             border-bottom: @border-width-base @border-style-base @table-border-color;
           }
         }

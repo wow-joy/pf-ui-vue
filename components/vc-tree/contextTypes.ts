@@ -14,6 +14,7 @@ import type {
   DragNodeEvent,
   Direction,
   FlattenNode,
+  ExpandAction,
 } from './interface';
 
 import type { DraggableConfig } from './Tree';
@@ -65,6 +66,7 @@ export interface TreeContextProps {
   dragging: boolean;
   direction: Direction;
   ellipsis?: boolean;
+  expandAction?: ExpandAction;
   getEllipsisPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
 
   loadData: (treeNode: EventDataNode) => Promise<void>;

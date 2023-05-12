@@ -47,6 +47,7 @@ export type PickerPanelSharedProps<DateType> = {
   /** @deprecated Will be removed in next big version. Please use `mode` instead */
   mode?: PanelMode;
   tabindex?: number;
+  focusValue?: boolean;
 
   // Locale
   locale: Locale;
@@ -134,6 +135,7 @@ function PickerPanel<DateType>() {
       mode: String,
       picker: { type: String, default: 'date' },
       tabindex: { type: [Number, String], default: 0 },
+      focusValue: { type: Boolean, default: undefined },
       showNow: { type: Boolean, default: undefined },
       showTime: [Boolean, Object],
       showToday: Boolean,
@@ -190,6 +192,7 @@ function PickerPanel<DateType>() {
         onSelect: onContextSelect,
         hideRanges,
         defaultOpenValue,
+        open
       } = panelContext;
       const { inRange, panelPosition, rangedValue, hoverRangedValue } = useInjectRange();
       const panelRef = ref<PanelRefProps>({});
@@ -241,6 +244,11 @@ function PickerPanel<DateType>() {
           props.onPickerValueChange(date);
         }
       };
+
+      watch(
+        () => open.value,
+        value => value && props.focusValue && setInnerViewDate(props.value)
+      );
 
       // Panel control
       const getInternalNextMode = (nextMode: PanelMode): PanelMode => {

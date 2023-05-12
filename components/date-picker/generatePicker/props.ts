@@ -28,6 +28,7 @@ function commonProps<DateType = any>() {
     placeholder: String,
     allowClear: { type: Boolean, default: undefined },
     autofocus: { type: Boolean, default: undefined },
+    focusValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: undefined },
     tabindex: Number,
     open: { type: Boolean, default: undefined },
@@ -102,6 +103,7 @@ export interface CommonProps<DateType> {
   placeholder?: string;
   allowClear?: boolean;
   autofocus?: boolean;
+  focusValue?: boolean;
   disabled?: boolean;
   tabindex?: number;
   open?: boolean;

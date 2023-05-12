@@ -7,7 +7,7 @@ import type {
   NodeMouseEventHandler,
   NodeMouseEventParams,
 } from './contextTypes';
-import type { DataNode, Key, FlattenNode, EventDataNode, Direction, FieldNames } from './interface';
+import type { DataNode, Key, FlattenNode, EventDataNode, Direction, FieldNames, ExpandAction } from './interface';
 
 export interface CheckInfo {
   event: 'check';
@@ -250,7 +250,9 @@ export const treeProps = () => ({
   virtual: { type: Boolean, default: undefined },
 
   // direction for drag logic
-  direction: { type: String as PropType<Direction> }
+  direction: { type: String as PropType<Direction> },
+  // 点击标题的展开逻辑
+  expandAction: { type: [Boolean, String] as PropType<ExpandAction> }
 });
 
 export type TreeProps = Partial<ExtractPropTypes<ReturnType<typeof treeProps>>>;

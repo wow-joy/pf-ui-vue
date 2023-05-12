@@ -21,7 +21,6 @@ export type {
 } from './Tree';
 
 export type {
-  ExpandAction as DirectoryTreeExpandAction,
   DirectoryTreeProps,
 } from './DirectoryTree';
 

@@ -101,3 +101,5 @@ export interface FieldNames {
   key?: string;
   children?: string;
 }
+
+export type ExpandAction = false | 'click' | 'doubleclick' | 'dblclick';

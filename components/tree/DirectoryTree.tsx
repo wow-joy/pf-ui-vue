@@ -20,12 +20,8 @@ import useConfigInject from '../_util/hooks/useConfigInject';
 import { filterEmpty } from '../_util/props-util';
 import { ScrollTo } from "../vc-tree/interface";
 
-export type ExpandAction = false | 'click' | 'doubleclick' | 'dblclick';
-
 export const directoryTreeProps = () => ({
   ...treeProps(),
-  expandAction: { type: [Boolean, String] as PropType<ExpandAction> },
-  selectExpand: Boolean
 });
 
 export type DirectoryTreeProps = Partial<ExtractPropTypes<ReturnType<typeof directoryTreeProps>>>;
@@ -44,7 +40,6 @@ export default defineComponent({
   props: initDefaultProps(directoryTreeProps(), {
     showIcon: true,
     expandAction: 'click',
-    selectExpand: true
   }),
   slots: ['icon', 'title', 'switcherIcon', 'titleRender'],
   // emits: [
@@ -171,21 +166,15 @@ export default defineComponent({
     };
 
     const onClick = (event: MouseEvent, node: EventDataNode) => {
-      const { expandAction, selectExpand } = props;
-
-      // Expand the tree
-      if (expandAction === 'click' && selectExpand) {
-        onDebounceExpand(event, node);
-      }
       emit('click', event, node);
     };
 
     const onDoubleClick = (event: MouseEvent, node: EventDataNode) => {
-      const { expandAction } = props;
+      // const { expandAction } = props;
       // Expand the tree
-      if (expandAction === 'dblclick' || expandAction === 'doubleclick') {
-        onDebounceExpand(event, node);
-      }
+      // if (expandAction === 'dblclick' || expandAction === 'doubleclick') {
+      //   onDebounceExpand(event, node);
+      // }
 
       emit('doubleclick', event, node);
       emit('dblclick', event, node);

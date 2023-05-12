@@ -43,6 +43,7 @@ cover: https://gw.alipayobjects.com/zos/alicdn/Xh-oWqg9k/Tree.svg
 | operation | 额外操作 | [TreeNodeOperation\[\]](#TreeNodeOperation) | - | 1.0.18 |
 | operationTrigger | 触发额外操作下拉菜单的行为, 移动端不支持 hover | Array<click\|hover\|contextmenu> | ['hover'] | 1.0.18 |
 | operationDisabledWithRow | 额外操作是否和当前节点一起被禁用 | boolean | false | 1.0.18 |
+| expandAction | 目录展开逻辑，可选 `false` `'click'` `'dblclick'` | string | - | 1.0.33 |
 
 ### 事件
 

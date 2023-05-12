@@ -100,6 +100,7 @@ cover: https://gw.alipayobjects.com/zos/alicdn/RT_USzA48/DatePicker.svg
 | superNextIcon | 自定义 `<<` 切换图标 | slot | - |  |
 | superPrevIcon | 自定义 `>>` 切换图标 | slot | - |  |
 | valueFormat | 可选，绑定值的格式，对 value、defaultValue、defaultPickerValue 起作用。不指定则绑定值为 dayjs 对象 | string，[具体格式](https://day.js.org/docs/zh-CN/display/format) | - |  |
+| focusValue | 展开日期面板时是否定位到选择的日期（未选择日期时定位到当天） | boolean | false | `1.0.33` |
 
 ### 共有的事件
 

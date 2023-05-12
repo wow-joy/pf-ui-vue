@@ -53,6 +53,7 @@ export type PickerSharedProps<DateType> = {
   placeholder?: string;
   allowClear?: boolean;
   autofocus?: boolean;
+  focusValue?: boolean;
   disabled?: boolean;
   tabindex?: number;
   open?: boolean;
@@ -148,6 +149,7 @@ function Picker<DateType>() {
       'locale',
       'inputReadOnly',
       'allowClear',
+      'focusValue',
       'autofocus',
       'showTime',
       'showNow',
@@ -466,7 +468,7 @@ function Picker<DateType>() {
         // ============================= Panel =============================
         const panelProps = {
           // Remove `picker` & `format` here since TimePicker is little different with other panel
-          ...(props as Omit<MergedPickerProps<DateType>, 'picker' | 'format'>),
+          ...(props as Omit<MergedPickerProps<DateType>, 'picker' | 'format' | 'focusValue'>),
           ...attrs,
           class: classNames({
             [`${prefixCls}-panel-focused`]: !typing.value,

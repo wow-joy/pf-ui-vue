@@ -209,6 +209,7 @@ function RangerPicker<DateType>() {
       'ranges',
       'allowEmpty',
       'allowClear',
+      'focusValue',
       'suffixIcon',
       'clearIcon',
       'pickerRef',

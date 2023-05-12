@@ -156,6 +156,7 @@ export default function generateSinglePicker<DateType, ExtraProps = {}>(
             id = formItemContext.id.value,
             ...restProps
           } = p;
+          // @ts-ignore
           const showTime = p.showTime === '' ? true : p.showTime;
           const { format } = p as any;
 
