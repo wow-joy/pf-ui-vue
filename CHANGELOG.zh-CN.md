@@ -11,6 +11,15 @@
 
 ---
 
+## 1.0.34
+`2023-05-15`
+- DatePicker 增加 focusValue 属性
+- Tree 增加 expandAction 属性、样式优化，DirectoryTree 弃用 selectExpand 属性
+- Table 样式优化
+- ToolTip 样式优化
+- Pagination 样式优化
+- Select 样式优化
+
 ## 1.0.32
 `2023-04-17`
 - 增加 Table 纵向滚动时的底部边框

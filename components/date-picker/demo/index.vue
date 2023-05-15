@@ -15,6 +15,7 @@
     <Mode />
     <Switchable />
     <Suffix />
+    <FocusValue />
   </demo-sort>
 </template>
 <script>
@@ -33,6 +34,7 @@ import Time from './time.vue';
 import Suffix from './suffix.vue';
 import Bordered from './bordered.vue';
 import RangePicker from './range-picker.vue';
+import FocusValue from './focus-value.vue';
 import CN from '../index.zh-CN.md';
 import US from '../index.en-US.md';
 import { defineComponent } from 'vue';
@@ -56,6 +58,7 @@ export default defineComponent({
     SelectInRnage,
     Bordered,
     RangePicker,
+    FocusValue,
   },
 });
 </script>
