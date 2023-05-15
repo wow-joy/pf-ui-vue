@@ -1,6 +1,6 @@
-import type { ExtractPropTypes, PropType } from 'vue';
+import type { ExtractPropTypes } from 'vue';
 import { nextTick, onUpdated, ref, watch, defineComponent, computed } from 'vue';
-import debounce from 'lodash-es/debounce';
+// import debounce from 'lodash-es/debounce';
 
 import FolderOpenFilled from '@pf-ui/pf-icons-vue/FolderOpenFilled';
 import FolderFilled from '@pf-ui/pf-icons-vue/FolderFilled';
@@ -136,19 +136,19 @@ export default defineComponent({
       { immediate: true },
     );
 
-    const expandFolderNode = (event: MouseEvent, node: any) => {
-      const { isLeaf } = node;
+    // const expandFolderNode = (event: MouseEvent, node: any) => {
+    //   const { isLeaf } = node;
 
-      if (isLeaf || event.shiftKey || event.metaKey || event.ctrlKey) {
-        return;
-      }
-      // Call internal rc-tree expand function
-      // https://github.com/ant-design/ant-design/issues/12567
-      treeRef.value!.onNodeExpand(event as any, node);
-    };
-    const onDebounceExpand = debounce(expandFolderNode, 200, {
-      leading: true,
-    });
+    //   if (isLeaf || event.shiftKey || event.metaKey || event.ctrlKey) {
+    //     return;
+    //   }
+    //   // Call internal rc-tree expand function
+    //   // https://github.com/ant-design/ant-design/issues/12567
+    //   treeRef.value!.onNodeExpand(event as any, node);
+    // };
+    // const onDebounceExpand = debounce(expandFolderNode, 200, {
+    //   leading: true,
+    // });
     const onExpand = (
       keys: Key[],
       info: {
