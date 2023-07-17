@@ -3,7 +3,7 @@ import LoadingOutlined from '@ant-design/icons-vue/LoadingOutlined';
 import CheckOutlined from '@ant-design/icons-vue/CheckOutlined';
 import CloseCircleFilled from '@ant-design/icons-vue/CloseCircleFilled';
 import SearchOutlined from '@pf-ui/pf-icons-vue/SearchOutlined'
-import CloseOutlined from '@pf-ui/pf-icons-vue/ErrorFilled'
+import CloseOutlined from '@pf-ui/pf-icons-vue/CloseFilled'
 
 export default function getIcons(props: any, slots: any = {}) {
   const { loading, multiple, prefixCls } = props;
