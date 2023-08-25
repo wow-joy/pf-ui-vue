@@ -220,6 +220,7 @@ export const baseSelectPropsWithoutPrivate = () => {
       type: String as PropType<Placement>,
     },
     getPopupContainer: { type: Function as PropType<RenderDOMFunc> },
+    searchDropdownAutoClose: { type: Boolean, default: true },
 
     // >>> Focus
     showAction: { type: Array as PropType<('focus' | 'click')[]> },

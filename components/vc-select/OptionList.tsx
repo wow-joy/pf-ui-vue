@@ -135,13 +135,13 @@ const OptionList = defineComponent({
     );
 
     // ========================== Values ==========================
-    const onSelectValue = (value?: RawValueType) => {
+    const onSelectValue = (value?: RawValueType, triggerByEnter?: boolean) => {
       if (value !== undefined) {
         props.onSelect(value, { selected: !props.rawValues.has(value) });
       }
 
-      // Single mode should always close by select
-      if (!baseProps.multiple) {
+      // Single mode should close by select when select is not trigger by enter and searchDropdownAutoClose is false
+      if (!baseProps.multiple && !(triggerByEnter && !baseProps.searchDropdownAutoClose)) {
         baseProps.toggleOpen(false);
       }
     };
@@ -206,7 +206,7 @@ const OptionList = defineComponent({
           if (item && !item.data.disabled) {
             onSelectValue(item.value);
           } else {
-            onSelectValue(undefined);
+            onSelectValue(undefined, true);
           }
 
           if (baseProps.open) {
