@@ -54,7 +54,7 @@
 }
 
 // Basic style for input
-.input() {
+.input(@color: @input-placeholder-color) {
   position: relative;
   display: inline-block;
   width: 100%;
@@ -68,7 +68,7 @@
   border: @border-width-base @border-style-base @input-border-color;
   border-radius: @border-radius-base;
   transition: all 0.3s;
-  .placeholder(); // Reset placeholder
+  .placeholder(@color); // Reset placeholder
 
   &:hover {
     .hover();
