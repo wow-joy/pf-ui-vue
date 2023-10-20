@@ -63,4 +63,4 @@ import './image/style';
 import './typography/style';
 import './watermark/style';
 import './scrollbar/style';
-// import './color-picker/style';
+import './color-picker/style';

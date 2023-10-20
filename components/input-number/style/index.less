@@ -241,6 +241,17 @@
     box-shadow: none;
   }
 
+  &-hide-controls {
+    .@{input-number-prefix-cls}-handler-wrap {
+      opacity: 0;
+      transition: opacity 0.2s linear 0.2s;
+    }
+
+    &:hover .@{input-number-prefix-cls}-handler-wrap, &-focused .@{input-number-prefix-cls}-handler-wrap {
+      opacity: 1;
+    }
+  }
+
   // ===================== Out Of Range =====================
   &-out-of-range {
     input {

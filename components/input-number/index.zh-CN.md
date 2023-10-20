@@ -23,6 +23,7 @@ cover: https://gw.alipayobjects.com/zos/alicdn/XOS8qZ0kU/InputNumber.svg
 | autofocus | 自动获取焦点 | boolean | false |  |
 | bordered | 是否有边框 | boolean | true |  |
 | controls | 是否显示增减按钮 | boolean | true |  |
+| hideControls | 当 `controls` 为 true 时，可设置 `hideControls` 为 true 来实现 hover 和 focused 时才显示增减按钮 | boolean | true | 1.0.39 |
 | decimalSeparator | 小数点 | string | - |  |
 | defaultValue | 初始值 | number |  |  |
 | disabled | 禁用 | boolean | false |  |

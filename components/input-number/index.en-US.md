@@ -20,6 +20,7 @@ When a numeric value needs to be provided.
 | autofocus | get focus when component mounted | boolean | false |  |
 | bordered | Whether has border style | boolean | true |  |
 | controls | Whether to show `+-` controls | boolean | true |  |
+| hideControls | Whether to hidden `+-` controls when controls is true | boolean | true |  |
 | decimalSeparator | decimal separator | string | - |  |
 | defaultValue | initial value | number |  |  |
 | disabled | disable the input | boolean | false |  |

@@ -44,6 +44,9 @@ export interface Locale {
     copied?: any;
     expand?: any;
   };
+  ColorPicker?: {
+    presetEmpty: string;
+  };
 }
 
 export interface LocaleProviderProps {

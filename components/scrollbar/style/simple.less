@@ -1,0 +1,97 @@
+@import '../../style/themes/index';
+@import '../../style/mixins/index';
+
+@simple-scrollbar-prefix-cls: ~'@{ant-prefix}-scrollbar-simple';
+
+.@{simple-scrollbar-prefix-cls} {
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: @scrollbar-background-color;
+
+    &:vertical {
+      box-shadow: 1px 0px 0px 0px @border-color-base inset, -1px 0px 0px 0px @border-color-base inset;
+    }
+
+    &:horizontal {
+      box-shadow: 0px 1px 0px 0px @border-color-base inset, -0px -1px 0px 0px @border-color-base inset;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: @scrollbar-color;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 6px;
+
+    &:hover {
+      background: @scrollbar-color-hover;
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: @scrollbar-background-color;
+    box-shadow: 0px 1px 0px 0px @border-color-base inset, -0px -1px 0px 0px @border-color-base inset;
+  }
+
+  &::-webkit-scrollbar {
+    width: @scrollbar-simple-size;
+    height: @scrollbar-simple-size;
+  }
+
+  &-x {
+    overflow-x: auto;
+  }
+
+  &-y {
+    overflow-y: auto;
+  }
+
+  &-x-hover {
+    overflow-x: hidden;
+    &:hover {
+      overflow-x: auto;
+    }
+  }
+
+  &-y-hover {
+    overflow-y: hidden;
+    &:hover {
+      overflow-y: auto;
+    }
+  }
+
+  &-trigger-hover {
+    &::-webkit-scrollbar-track {
+      visibility: hidden;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      visibility: hidden;
+    }
+
+    &::-webkit-scrollbar-corner {
+      visibility: hidden;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-track {
+        visibility: visible;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        visibility: visible;
+      }
+  
+      &::-webkit-scrollbar-corner {
+        visibility: visible;
+      }
+    }
+  }
+
+  &-rtl {
+    direction: rtl;
+  }
+}

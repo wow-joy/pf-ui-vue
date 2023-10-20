@@ -130,6 +130,9 @@ const localeValues: Locale = {
   Image: {
     preview: '预览',
   },
+  ColorPicker: {
+    presetEmpty: '暂无',
+  },
 };
 
 export default localeValues;

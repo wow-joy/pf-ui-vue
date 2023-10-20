@@ -131,6 +131,9 @@ const localeValues: Locale = {
   Image: {
     preview: 'Preview',
   },
+  ColorPicker: {
+    presetEmpty: 'Empty',
+  },
 };
 
 export default localeValues;

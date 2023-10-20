@@ -12,11 +12,8 @@ const { ESLint } = require('eslint');
   paths.forEach(path => {
     const content = fs.readFileSync(path).toString();
     const componentName = path.split('/')[1];
-
-    if (componentName !== 'color-picker') {
-      const { data } = matter(content);
+    const { data } = matter(content);
       components[componentName] = { ...components[componentName], ...data };
-    }
   });
   const TEMPLATE = `
 export default [

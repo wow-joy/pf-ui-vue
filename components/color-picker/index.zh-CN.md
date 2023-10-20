@@ -1,27 +1,60 @@
+---
+category: Components
+type: 数据录入
+title: ColorPicker
+subtitle: 颜色选择器
+cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*PpY4RYNM8UcAAAAAAAAAAAAADrJ8AQ/original
+coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*EHL-QYJofZsAAAAAAAAAAAAADrJ8AQ/original
+---
+
+提供颜色选取的组件，自 `1.0.39` 版本开始提供该组件。
+
+## 何时使用
+
+当用户需要自定义颜色选择的时候使用。
+
 ## API
 
+> 自 `@pf-ui/pf-ui-vue@1.0.39` 版本开始提供该组件。
+
+<!-- prettier-ignore -->
+| 参数 | 说明 | 类型 | 默认值 | 版本 |
+| :-- | :-- | :-- | :-- | :-- |
+| allowClear | 允许清除选择的颜色 | boolean | false | |
+| arrow | 配置弹出的箭头 | `boolean \| { pointAtCenter: boolean }` | true | |
+| children | 颜色选择器的触发器 | VueNode | - | |
+| defaultValue | 颜色默认的值 | string \| `Color` | - | |
+| disabled | 禁用颜色选择器 | boolean | - | |
+| destroyTooltipOnHide | 关闭后是否销毁弹窗 | `boolean` | false | - |
+| format | 颜色格式 | `rgb` \| `hex` \| `hsb` | `hex` | |
+| open | 是否显示弹出窗口 | boolean | - | |
+| presets | 预设的颜色 | `{ label: ReactNode, colors: Array<string \| Color> }[]` | - | |
+| placement | 弹出窗口的位置 | `top` \| `topLeft` \| `topRight` \| `bottom` \| `bottomLeft` \| `bottomRight` | `bottomLeft` | |
+| panelRender | 自定义渲染面板 | `(panel: VueNode, extra: { components: { Picker: FC; Presets: FC } }) => VueNode` | - | - |
+| showText | 显示颜色文本 | boolean \| `(color: Color) => VueNode` | - | - |
+| size | 设置触发器大小 | `large` \| `middle` \| `small` | `middle` | - |
+| trigger | 颜色选择器的触发模式 | `hover` \| `click` | `click` | |
+| value | 颜色的值 | string \| `Color` | - | |
+| onChange | 颜色变化的回调 | `(value: Color, hex: string) => void` | - | |
+| onChangeComplete | 颜色选择完成的回调  | `(value: Color) => void` | - | - |
+| onFormatChange | 颜色格式变化的回调 | `(format: 'hex' \| 'rgb' \| 'hsb') => void` | - | |
+| onOpenChange | 当 `open` 被改变时的回调 | `(open: boolean) => void` | - | |
+| onClear | 清除的回调 | `() => void` | - | - |
+
+### Color
+
+<!-- prettier-ignore -->
 | 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| colorRounded | 颜色数值精度 | number | 0 |
-| config | pickr 配置项 | [pickr options](https://github.com/Simonwep/pickr) | - |
-| defaultValue | 默认颜色 | string | - |
-| disabled | 是否禁用 | boolean | false |
-| format | 定义返回的颜色格式 | 'HEXA' \|'RGBA' \|'HSVA' \|'HSLA' \|'CMYK' | 'HEXA' |
-| getPopupContainer | 浮层渲染父节点，默认渲染到 body 上 | Function(triggerNode) | () => document.body |
-| locale | 语言包 | [默认配置](https://github.com/vueComponent/pf-ui-vue/blob/main/components/color-picker/locale) | - |
-| size | 取色器尺寸 | 'large'\|'small'\|'default' | 'default' |
-| value | 颜色值 | string | - |
+| :-- | :-- | :-- | :-- |
+| toHex | 转换成 `hex` 格式字符，返回格式如：`06aea6` | `() => string` | - |
+| toHexString | 转换成 `hex` 格式颜色字符串，返回格式如：`#06aea6` | `() => string` | - |
+| toHsb | 转换成 `hsb` 对象  | `() => ({ h: number, s: number, b: number, a number })` | - |
+| toHsbString | 转换成 `hsb` 格式颜色字符串，返回格式如：`hsb(177, 97%, 68%)` | `() => string` | - |
+| toRgb | 转换成 `rgb` 对象  | `() => ({ r: number, g: number, b: number, a number })` | - |
+| toRgbString | 转换成 `rgb` 格式颜色字符串，返回格式如：`rgb(6, 174, 166)` | `() => string` | - |
 
-### 事件
+## FAQ
 
-| 事件名称 | 说明 | 回调参数 |
-| --- | --- | --- |
-| `cancel` | 用户点击取消时(颜色返回至上个颜色) | `PickrInstance` |
-| `change` | 颜色值发生变更时(非保存).`swatchselect`也会触发 | `HSVaColorObject, PickrInstance` |
-| `changestop` | 用户不再改变颜色时 | `PickrInstance` |
-| `clear` | 清空颜色时 | `PickrInstance` |
-| `hide` | Pickr 关闭时 | `PickrInstance` |
-| `init` | 初始化完成,可以使用 pickr | `PickrInstance` |
-| `save` | 用户点击保存/清空按钮时 | `HSVaColorObject or null, PickrInstance` |
-| `show` | Pickr 开启时 | `PickrInstance` |
-| `swatchselect` | 用户切换了色板 | `HSVaColorObject, PickrInstance` |
+### 关于颜色赋值的问题
+
+颜色选择器的值同时支持字符串色值和选择器生成的 `Color` 对象，但由于不同格式的颜色字符串互相转换会有精度误差问题，所以受控场景推荐使用选择器生成的 `Color` 对象来进行赋值操作，这样可以避免精度问题，保证取值是精准的，选择器也可以按照预期工作。

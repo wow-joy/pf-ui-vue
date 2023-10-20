@@ -108,6 +108,7 @@
 @line-height-base: 1.5715;
 @border-radius-base: 3px;
 @border-radius-sm: @border-radius-base;
+@border-radius-lg: @border-radius-base;
 
 // vertical paddings
 @padding-lg: 24px; // containers
@@ -131,6 +132,7 @@
 @height-base: 32px;
 @height-lg: 40px;
 @height-sm: 24px;
+@height-xs: 16px;
 
 // The background colors for active and hover states for things like
 // list items or table cells.
@@ -171,6 +173,9 @@
 @border-color-inverse: @white;
 @border-width-base: 1px; // width of the border for a component
 @border-style-base: solid; // style of a components border
+
+@line-width: @border-width-base;
+@line-width-bold: 2px;
 
 // Outline
 @outline-blur-size: 0;
@@ -1166,3 +1171,16 @@
 @scrollbar-height: 6px;
 @scrollbar-hover-height: 10px;
 @scrollbar-background-color: @C16;
+@scrollbar-simple-size: 12px;
+
+// ColorPicker
+@color-picker-width: 234px;
+@color-picker-handler-size: 16px;
+@color-picker-handler-size-sm: 12px;
+@color-picker-alpha-input-width: 44px;
+@color-picker-input-number-handler-width: 16px;
+@color-picker-preset-color-size: 18px;
+@color-picker-inset-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.25);
+@color-picker-slider-height: 8px;
+@color-picker-preview-size: @color-picker-slider-height * 2 + @margin-sm;
+@color-picker-color-fill-secondary: rgba(0, 0, 0, 0.06);

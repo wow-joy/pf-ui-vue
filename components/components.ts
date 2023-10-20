@@ -446,5 +446,10 @@ export type { WatermarkProps } from './watermark';
 export type { NumberAnimationProps, NumberAnimationInst } from './number-animation';
 export { default as PfNumberAnimation, default as NumberAnimation } from './number-animation';
 
-export { default as PfScrollbar, default as Scrollbar } from './scrollbar'
-export type { ScrollbarInst, ScrollbarProps } from './scrollbar'
+export { default as PfScrollbar, default as Scrollbar } from './scrollbar';
+export type { ScrollbarInst, ScrollbarProps } from './scrollbar';
+
+export type { ColorPickerProps } from './color-picker';
+export { default as ColorPicker, default as PfColorPicker } from './color-picker';
+
+// export { default as PfSelectPro, default as SelectPro } from './select-pro';

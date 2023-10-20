@@ -31,6 +31,7 @@ const Scrollbar = defineComponent({
   setup () {
     const scrollbarInstRef = ref<InternalScrollbarInst | null>(null)
     const scrollContainer = computed(() => scrollbarInstRef.value?.containerRef)
+    const scrollContent = computed(() => scrollbarInstRef.value?.contentRef)
     const exposedMethods: ScrollbarInst = {
       scrollTo: (...args: any[]) => {
         scrollbarInstRef.value?.scrollTo(args[0], args[1])
@@ -42,7 +43,8 @@ const Scrollbar = defineComponent({
     return {
       ...exposedMethods,
       scrollbarInstRef,
-      scrollContainer
+      scrollContainer,
+      scrollContent
     }
   },
   render () {

@@ -2,6 +2,7 @@
   <pf-config-provider
     :locale="locale"
     :getTargetContainer="getTargetContainer"
+    :getPopupContainer="getPopupContainer"
   >
     <pf-scrollbar ref="globalScrollRef" verticalRailStyle="z-index: 9999;">
       <router-view />
@@ -121,7 +122,8 @@ export default defineComponent({
       { immediate: true },
     );
     const getTargetContainer = () => globalScrollRef.value?.scrollContainer;
-    const getPopupContainer = triggerNode => triggerNode?.parentNode || document.body;
+    // const getPopupContainer = triggerNode => triggerNode?.parentNode || document.body;
+    const getPopupContainer = () => document.getElementsByClassName('main-container-component')?.[0] || document.body;
 
     router.afterEach((to, from) => {
       if (to && from) {

@@ -47,6 +47,7 @@ export const inputNumberProps = () => ({
   step: { type: [String, Number] as PropType<ValueType>, default: 1 },
   tabindex: { type: Number as PropType<number> },
   controls: { type: Boolean as PropType<boolean>, default: true },
+  hideControls: { type: Boolean as PropType<boolean> },
   readonly: { type: Boolean as PropType<boolean> },
   disabled: { type: Boolean as PropType<boolean> },
   autofocus: { type: Boolean as PropType<boolean> },
@@ -499,6 +500,7 @@ export default defineComponent({
         readonly,
         keyboard,
         controls = true,
+        hideControls,
         autofocus,
 
         stringMode,
@@ -535,6 +537,7 @@ export default defineComponent({
             [`${prefixCls}-not-a-number`]: decimalValue.value.isNaN(),
             [`${prefixCls}-out-of-range`]:
               !decimalValue.value.isInvalidate() && !isInRange(decimalValue.value),
+            [`${prefixCls}-hide-controls`]: controls && hideControls
           })}
           style={style}
           onKeydown={onKeyDown}
