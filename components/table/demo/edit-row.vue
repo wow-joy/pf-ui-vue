@@ -119,6 +119,14 @@ export default defineComponent({
   padding: 3px 10px;
 }
 
+.pf-table-row > .pf-table-cell:first-child > .edit-row {
+  padding-left: 20px;
+}
+
+.pf-table-row > .pf-table-cell:last-child > .edit-row {
+  padding-right: 20px;
+}
+
 .edit-row div {
   line-height: 26px;
 }

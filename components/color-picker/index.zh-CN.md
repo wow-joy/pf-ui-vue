@@ -27,6 +27,7 @@ coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*EHL-QYJofZsAAA
 | disabled | 禁用颜色选择器 | boolean | - | |
 | destroyTooltipOnHide | 关闭后是否销毁弹窗 | `boolean` | false | - |
 | format | 颜色格式 | `rgb` \| `hex` \| `hsb` | `hex` | |
+| formatOptions | 颜色格式选项，默认显示所有选项，只有一个选项时不显示下拉框 | `(rgb | hex | hsb)[]` | - | 1.0.40 |
 | open | 是否显示弹出窗口 | boolean | - | |
 | presets | 预设的颜色 | `{ label: ReactNode, colors: Array<string \| Color> }[]` | - | |
 | placement | 弹出窗口的位置 | `top` \| `topLeft` \| `topRight` \| `bottom` \| `bottomLeft` \| `bottomRight` | `bottomLeft` | |

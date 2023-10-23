@@ -51,6 +51,10 @@ const colorPickerProps = () => ({
     type: String as PropType<'hex' | 'hsb' | 'rgb'>,
     default: 'hex',
   },
+  formatOptions: {
+    type: Array as PropType<('hex' | 'hsb' | 'rgb')[]>,
+    default: undefined
+  },
   allowClear: {
     type: Boolean as PropType<boolean>,
     default: false,
@@ -207,6 +211,7 @@ const ColorPicker = defineComponent({
       disabled: props.disabled,
       presets: props.presets,
       format: formatValue.value,
+      formatOptions: props.formatOptions,
       panelRender: props.panelRender,
       onFormatChange,
       onChangeComplete: handleChangeComplete,

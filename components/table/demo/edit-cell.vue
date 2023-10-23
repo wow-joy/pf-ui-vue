@@ -150,7 +150,7 @@ export default defineComponent({
 <style lang="less">
 
 .edit-row {
-  padding: 3px 10px;
+  padding: 3px 10px 3px 20px;
 }
 
 .static-row {

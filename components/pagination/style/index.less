@@ -206,7 +206,9 @@
     }
 
     .@{pagination-prefix-cls}-item-link {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 100%;
       padding: 0;
@@ -344,12 +346,14 @@
   }
 
   &-simple &-simple-pager {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     height: @pagination-item-size-sm;
     margin-right: 8px;
 
     input {
       box-sizing: border-box;
+      width: 40px;
       height: 100%;
       margin-right: 8px;
       padding: 0 6px;

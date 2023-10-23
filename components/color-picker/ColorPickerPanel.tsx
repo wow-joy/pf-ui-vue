@@ -27,13 +27,14 @@ interface ColorPickerPanelProps extends ColorPickerBaseProps {
 const ColorPickerPanel = defineComponent({
   name: 'ColorPickerPanel',
   inheritAttrs: false,
-  props: ['prefixCls', 'presets', 'onChange', 'onClear', 'color', 'panelRender'],
+  props: ['prefixCls', 'presets', 'onChange', 'onClear', 'color', 'panelRender', 'formatOptions'],
   setup(props: ColorPickerPanelProps, { attrs }) {
     const colorPickerPanelPrefixCls = computed(() => `${props.prefixCls}-inner-content`);
     // ==== Inject props ===
     const panelPickerProps = computed(() => ({
       prefixCls: props.prefixCls,
       value: props.color,
+      formatOptions: props.formatOptions,
       onChange: props.onChange,
       onClear: props.onClear,
       ...attrs,

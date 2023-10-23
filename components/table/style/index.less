@@ -101,7 +101,7 @@
       > th {
         position: relative;
         color: @table-header-color;
-        font-weight: 500;
+        font-weight: 600;
         text-align: left;
         background: @table-header-bg;
         // border-bottom: @border-width-base @border-style-base @table-border-color;
@@ -111,6 +111,15 @@
         &[colspan]:not([colspan='1']) {
           text-align: center;
         }
+
+        &:first-child {
+          padding-left: 20px;
+        }
+
+        &:last-child {
+          padding-right: 20px;
+        }
+
         // 暂时隐藏，不需要添加
         // &:not(:last-child):not(.@{table-prefix-cls}-selection-column):not(.@{table-prefix-cls}-row-expand-icon-cell):not([colspan])::before {
         //   position: absolute;
@@ -152,6 +161,14 @@
         border-bottom: @border-width-base @border-style-base @table-border-color;
         transition: background 0.3s;
         padding: @table-padding-vertical @table-padding-horizontal;
+
+        &:first-child {
+          padding-left: 20px;
+        }
+
+        &:last-child {
+          padding-right: 20px;
+        }
 
         // ========================= Nest Table ===========================
         > .@{table-prefix-cls}-wrapper:only-child,

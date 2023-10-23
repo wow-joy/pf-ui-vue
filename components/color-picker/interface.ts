@@ -25,6 +25,7 @@ export interface ColorPickerBaseProps {
   color?: Color;
   prefixCls: string;
   format?: keyof typeof ColorFormat;
+  formatOptions?: (keyof typeof ColorFormat)[];
   allowClear?: boolean;
   colorCleared?: boolean;
   disabled?: boolean;
