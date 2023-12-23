@@ -26,6 +26,7 @@ export interface NoticeProps {
 
   /** @private Provided by CSSMotionList */
   visible?: boolean;
+  hoverRemain?: boolean;
 }
 
 export default defineComponent<NoticeProps>({
@@ -43,6 +44,7 @@ export default defineComponent<NoticeProps>({
     'onClose',
     'holder',
     'visible',
+    'hoverRemain'
   ] as any,
   setup(props, { attrs, slots }) {
     let closeTimer: any;
@@ -75,6 +77,14 @@ export default defineComponent<NoticeProps>({
       clearCloseTimer();
       startCloseTimer();
     };
+
+    const handleMouseenter = () => {
+      props.hoverRemain && clearCloseTimer();
+    };
+    const handleMouseleave = () => {
+      props.hoverRemain && startCloseTimer();
+    };
+
     onMounted(() => {
       startCloseTimer();
     });
@@ -114,8 +124,8 @@ export default defineComponent<NoticeProps>({
             [`${componentClass}-closable`]: closable,
           })}
           style={style as CSSProperties}
-          onMouseenter={clearCloseTimer}
-          onMouseleave={startCloseTimer}
+          onMouseenter={handleMouseenter}
+          onMouseleave={handleMouseleave}
           onClick={onClick}
           {...dataOrAriaAttributeProps}
         >

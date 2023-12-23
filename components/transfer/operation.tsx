@@ -38,7 +38,7 @@ const Operation: FunctionalComponent<TransferOperationProps> = props => {
   return (
     <div class={className} style={style}>
       <Button
-        type="primary"
+        type="secondary"
         size="small"
         disabled={disabled || !rightActive}
         onClick={moveToRight}
@@ -48,7 +48,7 @@ const Operation: FunctionalComponent<TransferOperationProps> = props => {
       </Button>
       {!oneWay && (
         <Button
-          type="primary"
+          type="secondary"
           size="small"
           disabled={disabled || !leftActive}
           onClick={moveToLeft}

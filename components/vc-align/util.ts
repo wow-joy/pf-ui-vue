@@ -1,6 +1,7 @@
 import contains from '../vc-util/Dom/contains';
 import type { TargetPoint } from './interface';
 import ResizeObserver from 'resize-observer-polyfill';
+import useShadowRoot from '../_util/hooks/useShadowRoot';
 
 export function isSamePoint(prev: TargetPoint, next: TargetPoint) {
   if (prev === next) return true;
@@ -33,7 +34,9 @@ export function monitorResize(element: HTMLElement, callback: Function) {
   let prevHeight: number = null;
 
   function onResize([{ target }]: ResizeObserverEntry[]) {
-    if (!document.documentElement.contains(target)) return;
+    const shadowRoot = useShadowRoot();
+    const isTargetExist = shadowRoot ? shadowRoot.contains(target) : document.documentElement.contains(target);
+    if (!isTargetExist) return;
     const { width, height } = target.getBoundingClientRect();
     const fixedWidth = Math.floor(width);
     const fixedHeight = Math.floor(height);

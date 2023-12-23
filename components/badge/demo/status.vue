@@ -20,7 +20,7 @@ Standalone badge with status.
   <pf-badge status="error" />
   <pf-badge status="default" />
   <pf-badge status=""  color="#4ACFB1" />
-  <pf-badge status="processing" color="#FEB034"/>
+  <pf-badge status="processing" color="#FF9B54"/>
   <!-- <br />
   <pf-badge status="success" text="Success"/>
   <br />
@@ -39,7 +39,7 @@ Standalone badge with status.
   <br />
   <pf-badge status="error" text="审批驳回" color="#F36969"/>
   <br />
-  <pf-badge status="processing" text="审批中" color="#FEB034"/>
+  <pf-badge status="processing" text="审批中" color="#FF9B54"/>
   <br />
   <pf-badge status="" text="离职" color="#CCCCCC"/>
   <br />
@@ -58,7 +58,7 @@ Standalone badge with status.
   <pf-badge
     count="在"
     :number-style="{
-      backgroundColor: '#feb034',
+      backgroundColor: '#FF9B54',
       color: '#fff',
       border: 'none',
       padding: 0,

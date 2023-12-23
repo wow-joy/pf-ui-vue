@@ -52,6 +52,7 @@ export interface NotificationProps {
   animation?: string | object;
   maxCount?: number;
   closeIcon?: any;
+  hoverRemain?: boolean;
 }
 
 type NotificationState = {
@@ -64,7 +65,7 @@ type NotificationState = {
 const Notification = defineComponent<NotificationProps>({
   name: 'Notification',
   inheritAttrs: false,
-  props: ['prefixCls', 'transitionName', 'animation', 'maxCount', 'closeIcon'] as any,
+  props: ['prefixCls', 'transitionName', 'animation', 'maxCount', 'closeIcon', 'hoverRemain'] as any,
   setup(props, { attrs, expose, slots }) {
     const hookRefs = new Map<Key, HTMLDivElement>();
     const notices = ref<NotificationState>([]);
@@ -125,7 +126,7 @@ const Notification = defineComponent<NotificationProps>({
       notices,
     });
     return () => {
-      const { prefixCls, closeIcon = slots.closeIcon?.({ prefixCls }) } = props;
+      const { prefixCls, closeIcon = slots.closeIcon?.({ prefixCls }), hoverRemain } = props;
       const noticeNodes = notices.value.map(({ notice, holderCallback }, index) => {
         const updateMark = index === notices.value.length - 1 ? notice.updateMark : undefined;
         const { key, userPassKey } = notice;
@@ -144,6 +145,7 @@ const Notification = defineComponent<NotificationProps>({
             notice.onClose?.();
           },
           onClick: notice.onClick,
+          hoverRemain,
         };
         if (holderCallback) {
           return (

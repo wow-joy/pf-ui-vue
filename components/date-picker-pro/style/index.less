@@ -1,0 +1,21 @@
+@import '../../style/themes/index';
+
+@picker-prefix-cls: ~'@{ant-prefix}-picker-pro';
+
+.@{picker-prefix-cls} {
+  &-range-single {
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+    
+    &-picker {
+      width: 200px;
+    }
+
+    &-divider {
+      width: 10px;
+      height: 1px;
+      background: @E3;
+    }
+  }
+}

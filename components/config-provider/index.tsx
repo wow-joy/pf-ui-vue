@@ -19,6 +19,10 @@ import { configProviderProps, useProvideGlobalForm } from './context';
 
 import { configProviderSymbol } from '../_util/globalSymbol';
 
+import { setShadowRoot } from '../_util/hooks/useShadowRoot';
+
+import { setDomain } from '../_util/hooks/useDomain';
+
 export type { ConfigProviderProps, Theme, SizeType, Direction, CSPConfig } from './context';
 export const defaultPrefixCls = 'pf';
 function getGlobalPrefixCls() {
@@ -210,8 +214,12 @@ ConfigProvider.config = setGlobalConfig;
 ConfigProvider.install = function (app: App) {
   app.component(ConfigProvider.name, ConfigProvider);
 };
+ConfigProvider.setShadowRoot = setShadowRoot;
+ConfigProvider.setDomain = setDomain;
 
 export default ConfigProvider as typeof ConfigProvider &
   Plugin & {
     readonly config: typeof setGlobalConfig;
+    readonly setShadowRoot: typeof setShadowRoot;
+    readonly setDomain: typeof setDomain;
   };

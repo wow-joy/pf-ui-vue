@@ -1,6 +1,6 @@
 {
   "name": "@pf-ui/pf-ui-vue",
-  "version": "1.0.40",
+  "version": "1.0.45",
   "title": "pf-ui-vue",
   "description": "An enterprise-class UI design language and Vue-based implementation",
   "keywords": [
@@ -15,7 +15,7 @@
     "ui",
     "framework",
     "frontend"
-  ],  
+  ],
   "main": "lib/index.js",
   "module": "es/index.js",
   "unpkg": "dist/antd.min.js",
@@ -281,6 +281,7 @@
     "evtd": "^0.2.4",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.15",
+    "pinyin-pro": "^3.18.5",
     "resize-observer-polyfill": "^1.5.1",
     "scroll-into-view-if-needed": "^2.2.25",
     "shallow-equal": "^1.0.0",

@@ -500,19 +500,19 @@ gulp.task(
       console.log(chalk.bgRed('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'));
     }
     const npmArgs = getNpmArgs();
-    if (npmArgs) {
-      for (let arg = npmArgs.shift(); arg; arg = npmArgs.shift()) {
-        if (
-          /^pu(b(l(i(sh?)?)?)?)?$/.test(arg) &&
-          npmArgs.indexOf('--with-antd-tools') < 0 &&
-          !process.env.npm_config_with_antd_tools
-        ) {
-          reportError();
-          done(1);
-          return;
-        }
-      }
-    }
+    // if (npmArgs) {
+    //   for (let arg = npmArgs.shift(); arg; arg = npmArgs.shift()) {
+    //     if (
+    //       /^pu(b(l(i(sh?)?)?)?)?$/.test(arg) &&
+    //       npmArgs.indexOf('--with-antd-tools') < 0 &&
+    //       !process.env.npm_config_with_antd_tools
+    //     ) {
+    //       reportError();
+    //       done(1);
+    //       return;
+    //     }
+    //   }
+    // }
     done();
   }),
 );

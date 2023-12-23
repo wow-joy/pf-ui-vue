@@ -15,6 +15,7 @@ let hasTransitionName = false;
 let getContainer = () => document.body;
 let maxCount: number;
 let rtl = false;
+let defaultHoverRemain = false;
 
 export function getKeyThenIncreaseKey() {
   return key++;
@@ -28,6 +29,7 @@ export interface ConfigOptions {
   transitionName?: string;
   maxCount?: number;
   rtl?: boolean;
+  hoverRemain?: boolean;
 }
 
 function setMessageConfig(options: ConfigOptions) {
@@ -58,6 +60,9 @@ function setMessageConfig(options: ConfigOptions) {
   if (options.rtl !== undefined) {
     rtl = options.rtl;
   }
+  if (options.hoverRemain !== undefined) {
+    defaultHoverRemain = options.hoverRemain;
+  }
 }
 
 function getMessageInstance(args: MessageArgsProps, callback: (i: NotificationInstance) => void) {
@@ -76,6 +81,7 @@ function getMessageInstance(args: MessageArgsProps, callback: (i: NotificationIn
       getContainer: getContainer || args.getPopupContainer,
       maxCount,
       name: 'message',
+      hoverRemain: args.hoverRemain,
     },
     (instance: any) => {
       if (messageInstance) {
@@ -121,10 +127,12 @@ export interface MessageArgsProps {
   appContext?: any;
   onClick?: (e: MouseEvent) => void;
   closeable?: boolean;
+  hoverRemain?: boolean;
 }
 
 function notice(args: MessageArgsProps): MessageType {
   const duration = args.duration !== undefined ? args.duration : defaultDuration;
+  args.hoverRemain = args.hoverRemain !== undefined ? args.hoverRemain : defaultHoverRemain;
 
   const target = args.key || getKeyThenIncreaseKey();
   // todo
@@ -140,6 +148,7 @@ function notice(args: MessageArgsProps): MessageType {
       instance.notice({
         key: target,
         duration,
+        hoverRemain: args.hoverRemain,
         // closeable,
         style: args.style || {},
         class: args.class,

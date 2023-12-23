@@ -35,14 +35,14 @@ export default defineComponent({
         title: 'Do you Want to delete?',
         icon: createVNode(ExclamationCircleOutlined),
         closable: true,
-        content: createVNode('div', { style: 'color:red;' }, 'Some descriptions'),
+        content: 'Some descriptions',
         okButtonProps: {
           type: 'primary',
           minWidth: '90px',
           size: 'small'
         },
         cancelButtonProps: {
-          type: 'secondary',
+          type: 'default',
           minWidth: '90px',
           size: 'small'
         },
@@ -62,7 +62,6 @@ export default defineComponent({
         closable: true,
         content: 'Some descriptions',
         okText: 'Yes',
-        okType: 'danger',
         cancelText: 'No',
         okButtonProps: {
           type: 'secondary',
@@ -95,7 +94,7 @@ export default defineComponent({
         },
         cancelText: 'No',
         cancelButtonProps: {
-          type: 'secondary',
+          type: 'default',
           minWidth: '90px',
           size: 'small'
         },

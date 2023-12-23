@@ -7,7 +7,7 @@ import { createApp, Transition, TransitionGroup, version as vueVersion } from 'v
 import i18n from './i18n';
 import NProgress from 'nprogress';
 import router from './router';
-import Antd from '@pf-ui/pf-ui-vue';
+import Antd, { Pfmessage } from '@pf-ui/pf-ui-vue';
 import demoBox from './components/DemoBox.vue';
 import demoContainer from './components/demoContainer.vue';
 import demoSort from './components/demoSort.jsx';
@@ -27,6 +27,12 @@ app.component('DemoContainer', demoContainer);
 app.component('DemoSort', demoSort);
 app.component('VNodes', function (_, { attrs: { value } }) {
   return value;
+});
+
+Pfmessage.config({
+  top: '50%',
+  maxCount: 5,
+  hoverRemain: true,
 });
 
 // app.component('tempVar', {

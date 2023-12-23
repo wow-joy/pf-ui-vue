@@ -19,7 +19,7 @@ When requiring users to interact with the application, but without jumping to a 
 | bodyStyle | Body style for modal body element. Such as height, padding etc. | object | {} |  |
 | cancelButtonProps | The cancel button props | [ButtonProps](/components/button/#API) | - |  |
 | cancelText | Text of the Cancel button | string\|slot | `Cancel` |  |
-| centered | Centered Modal | boolean | `false` |  |
+| centered | Centered Modal | boolean | `true` |  |
 | closable | Whether a close (x) button is visible on top right of the modal dialog or not | boolean | true |  |
 | closeIcon | custom close icon | VNode \| slot | - |  |
 | confirmLoading | Whether to apply loading visual effect for OK button or not | boolean | false |  |

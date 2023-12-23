@@ -22,7 +22,7 @@ cover: https://gw.alipayobjects.com/zos/alicdn/3StSdUlSH/Modal.svg
 | bodyStyle | Modal body 样式 | object | {} |  |
 | cancelButtonProps | cancel 按钮 props | [ButtonProps](/components/button-cn/#API) | - |  |
 | cancelText | 取消按钮文字 | string\| slot | 取消 |  |
-| centered | 垂直居中展示 Modal | boolean | `false` |  |
+| centered | 垂直居中展示 Modal | boolean | `true` |  |
 | closable | 是否显示右上角的关闭按钮 | boolean | true |  |
 | closeIcon | 自定义关闭图标 | VNode \| slot | - |  |
 | confirmLoading | 确定按钮 loading | boolean | 无 |  |

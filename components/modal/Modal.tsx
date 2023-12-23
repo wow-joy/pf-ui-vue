@@ -48,7 +48,7 @@ export const modalProps = () => ({
   'onUpdate:visible': Function as PropType<(visible: boolean) => void>,
   onChange: Function as PropType<(visible: boolean) => void>,
   afterClose: Function as PropType<() => void>,
-  centered: { type: Boolean, default: undefined },
+  centered: { type: Boolean, default: true },
   width: [String, Number],
   footer: PropTypes.any,
   okText: PropTypes.any,

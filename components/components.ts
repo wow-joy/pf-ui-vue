@@ -452,4 +452,6 @@ export type { ScrollbarInst, ScrollbarProps } from './scrollbar';
 export type { ColorPickerProps } from './color-picker';
 export { default as ColorPicker, default as PfColorPicker } from './color-picker';
 
-// export { default as PfSelectPro, default as SelectPro } from './select-pro';
+export { default as PfSelectPro, default as SelectPro } from './select-pro';
+
+export { default as PfDatePickerPro, default as DatePickerPro } from './date-picker-pro';

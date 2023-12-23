@@ -131,9 +131,9 @@
       left: 50%;
       transform: translateX(-50%);
       border-radius: 3px;
-      height: 46px;
+      height: 40px;
       bottom: 0;
-      padding: 0 26px 0 21px;
+      padding: 0 20px;
       background: @image-preview-operation-background;
       color: @image-preview-operation-color;
       transition: color .3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -166,13 +166,17 @@
         width: 80px;
 
         &.@{ant-prefix}-select-single:not(.@{ant-prefix}-select-customize-input) .@{ant-prefix}-select-selector {
-          height: 30px;
+          height: 26px;
           background-color: @image-preview-operation-background;
           border-color: @image-preview-operation-background;
           color: @image-preview-operation-color;
 
           .@{ant-prefix}-select-selection-search-input {
-            height: 28px;
+            height: 24px;
+          }
+
+          .@{ant-prefix}-select-selection-item {
+            line-height: 24px;
           }
         }
 
@@ -222,9 +226,9 @@
 
       &-button, &-button:hover, &-button:focus {
         margin-left: 20px;
-        width: 40px;
-        height: 20px;
-        font-size: 12px;
+        width: 52px;
+        height: 26px;
+        font-size: 14px;
         padding: 0;
         background: rgba(0, 0, 0, 0);
         color: @white;

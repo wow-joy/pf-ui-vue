@@ -36,7 +36,7 @@ const localeValues: Locale = {
     cancelSort: '取消排序',
   },
   Modal: {
-    okText: '确定',
+    okText: '保存',
     cancelText: '取消',
     justOkText: '知道了',
   },
