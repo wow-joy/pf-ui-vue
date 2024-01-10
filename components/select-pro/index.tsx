@@ -68,10 +68,10 @@ export const selectProProps = () => ({
   code: String,
   hisUuid: String,
   domain: String,
-  getConfig: Function as PropType<() => Promise<Config>>,
+  config: Object as PropType<Config>,
   surname: Boolean, // 姓氏模式 为 true 时按首字母搜索匹配到百家姓中的姓氏相关的字符时优先匹配姓氏拼音
   onConfigChange: Function as PropType<(config: Config) => void>,
-  'onUpdate:config': Function as PropType<(config: Config) => void>,
+  'onUpdate:configValue': Function as PropType<(config: Config) => void>,
 })
 
 const selectSlots = [
@@ -127,29 +127,33 @@ const SelectPro = defineComponent({
       return res
     })
 
+    const handleConfig = (value?: Config) => {
+      config.value = value
+      props.onConfigChange?.(value)
+      emit('update:configValue', value)
+    }
+
     watch([
       () => props.code,
       () => props.hisUuid,
       () => props.domain,
-      () => props.getConfig
-    ], ([curCode, curHisUuid, curDomain, curGetConfig], [preCode, preHisUuid, preDomain]) => {
-      let configPromise: Promise<Config>
+      () => props.config
+    ], ([curCode, curHisUuid, curDomain, curConfig], [preCode, preHisUuid, preDomain, preConfig]) => {
       if ((curCode && curCode !== preCode) || (curHisUuid && curHisUuid !== preHisUuid) || ((curCode || curHisUuid) && curDomain !== preDomain)) {
         configLoading.value = true
-        configPromise = getCofig({
+        getCofig({
           moduleCode: curCode || '',
           hisUuid: curHisUuid && !curCode ? curHisUuid : ''
+        }).then(res => {
+          handleConfig(res)
+        }).finally(() => {
+          configLoading.value = false
         })
-      } else if (curGetConfig) {
-        configPromise = curGetConfig()
+      } else if (curConfig && (curConfig !== preConfig)) {
+        Promise.resolve().then(() => {
+          handleConfig(curConfig)
+        })
       }
-      configPromise?.then(res => {
-        config.value = res
-        props.onConfigChange?.(res)
-        emit('update:config', res)
-      }).finally(() => {
-        configLoading.value = false
-      })
     }, {
       immediate: true
     })

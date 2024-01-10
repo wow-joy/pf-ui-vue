@@ -20,6 +20,8 @@ import { withInstall } from '../_util/type'
 import { Dayjs } from 'dayjs'
 import classNames from '../_util/classNames'
 import useConfigInject from '../_util/hooks/useConfigInject'
+import { FormItemRest } from '../form'
+import { useInjectFormItemContext } from '../form/FormItemContext'
 
 type ValueType<T> = T | string | RangeValue<T> | RangeValue<string>
 
@@ -81,9 +83,9 @@ function datePickerProProps<DateType = any>() {
     code: String,
     hisUuid: String,
     domain: String,
-    getConfig: Function as PropType<(() => Promise<Config>) | (() => Promise<undefined>)>,
+    config: Object as PropType<Config>,
     onConfigChange: Function as PropType<(config: Config) => void>,
-    'onUpdate:config': Function as PropType<(config: Config) => void>,
+    'onUpdate:configValue': Function as PropType<(config: Config) => void>,
   }
 }
 
@@ -102,6 +104,14 @@ const mergeProps = (originProps: any, props: any) => {
     }
   })
   return res as any
+}
+
+const isEmptyRange = (value?: [Dayjs | string | undefined | null, Dayjs | string | undefined | null]) => {
+  if (!value?.length) {
+    return true
+  }
+  const [start, end] = value || []
+  return !(start || end)
 }
 
 const DatePickerPro = defineComponent({
@@ -123,6 +133,7 @@ const DatePickerPro = defineComponent({
       'picker',
       props,
     )
+    const formItemContext = useInjectFormItemContext()
 
     const configLoading = ref(false)
     const config = ref<Config & {
@@ -135,56 +146,69 @@ const DatePickerPro = defineComponent({
     const rangeValue = ref<RangeValue<Dayjs> | RangeValue<string>>()
     const hackValue = ref<[Dayjs, Dayjs]>()
 
-    const defaultValueCache = ref<Dayjs | string | [Dayjs, Dayjs] | [string, string]>()
+    const selectDefaultValue = ref<Dayjs | string>()
+
+    const handleConfig = (value?: Config) => {
+      const formatData = DateFormatMap.findById(value?.formate)
+      const _config = {
+        ...value,
+        picker: formatData?.picker,
+        showTime: formatData?.showTime,
+        format: formatData?.name
+      }
+      config.value = _config
+      props.onConfigChange?.(_config)
+      emit('update:configValue', _config)
+
+      if (props.value) {
+        return
+      }
+      if (props.defaultValue) {
+        if (value?.type === DateTypeEnum.Select) {
+          selectDefaultValue.value = props.defaultValue
+        } else if (value?.type === DateTypeEnum.Span) {
+          rangeValue.value = props.defaultValue
+        }
+      } else if (value?.defaultVal) {
+        if (value?.type === DateTypeEnum.Select) {
+          const defaultData = DateDefaultMap.findById(config.value?.defaultVal)
+          const defaultValue: Dayjs | undefined = defaultData && defaultData.getDefaultValue && defaultData.getDefaultValue()
+          selectDefaultValue.value = defaultValue
+          props.onChange?.(defaultValue, defaultValue?.format(formatData?.name))
+          emit('update:value', defaultValue)
+        } else if (value?.type === DateTypeEnum.Span) {
+          const defaultData = DateRangeDefaultMap.findById(config.value?.defaultVal)
+          const defaultValue: [Dayjs | undefined, Dayjs | undefined] | undefined = defaultData && defaultData.getDefaultValue && defaultData.getDefaultValue()
+          const valueString = defaultValue?.map(v => v?.format(formatData?.name)) as [string, string]
+          const _defaultValue = isEmptyRange(defaultValue) ? null : defaultValue
+          rangeValue.value = _defaultValue
+          props.onChange?.(_defaultValue, valueString)
+          emit('update:value', _defaultValue)
+        }
+      }
+    }
 
     watch([
       () => props.code,
       () => props.hisUuid,
       () => props.domain,
-      () => props.getConfig
-    ], ([curCode, curHisUuid, curDomain, curGetConfig], [preCode, preHisUuid, preDomain]) => {
-      let configPromise: Promise<Config>
+      () => props.config,
+    ], ([curCode, curHisUuid, curDomain, curConfig], [preCode, preHisUuid, preDomain, preConfig]) => {
       if ((curCode && curCode !== preCode) || (curHisUuid && curHisUuid !== preHisUuid) || ((curCode || curHisUuid) && curDomain !== preDomain)) {
         configLoading.value = true
-        configPromise = getCofig({
+        getCofig({
           moduleCode: curCode || '',
           hisUuid: curHisUuid && !curCode ? curHisUuid : ''
+        }).then(res => {
+          handleConfig(res)
+        }).finally(() => {
+          configLoading.value = false
         })
-      } else if (curGetConfig) {
-        configPromise = curGetConfig()
+      } else if (curConfig && (curConfig !== preConfig)) {
+        Promise.resolve().then(() => {
+          handleConfig(curConfig)
+        })
       }
-      configPromise?.then(res => {
-        const formatData = DateFormatMap.findById(res?.formate)
-        const _config = {
-          ...res,
-          picker: formatData?.picker,
-          showTime: formatData?.showTime,
-          format: formatData?.name
-        }
-        console.log('_config', _config)
-        config.value = _config
-        props.onConfigChange?.(_config)
-        emit('update:config', _config)
-
-        if (res.defaultVal) {
-          if (res.type === DateTypeEnum.Select) {
-            const defaultData = DateDefaultMap.findById(config.value?.defaultVal)
-            const defaultValue: Dayjs | undefined = defaultData && defaultData.getDefaultValue && defaultData.getDefaultValue()
-            defaultValueCache.value = defaultValue
-            props.onChange?.(defaultValue, defaultValue?.format(formatData?.name))
-            emit('update:value', defaultValue)
-          } else if (res.type === DateTypeEnum.Span) {
-            const defaultData = DateRangeDefaultMap.findById(config.value?.defaultVal)
-            const defaultValue: [Dayjs | undefined, Dayjs | undefined] | undefined = defaultData && defaultData.getDefaultValue && defaultData.getDefaultValue()
-            const valueString = defaultValue?.map(v => v?.format(formatData?.name)) as [string, string]
-            rangeValue.value = defaultValue
-            props.onChange?.(defaultValue, valueString)
-            emit('update:value', defaultValue)
-          }
-        }
-      }).finally(() => {
-        configLoading.value = false
-      })
     }, {
       immediate: true
     })
@@ -204,7 +228,9 @@ const DatePickerPro = defineComponent({
       return {
         ...merged,
         'onUpdate:value': undefined,
-        defaultValue: undefined
+        defaultValue: undefined,
+        showToday: props.showToday || false,
+        showNow: props.showNow || false
       }
     })
     const rangeSingleMergedPickerClass = computed(() => classNames(`${prefixCls.value}-pro-range-single-picker`, props.pickerClassName))
@@ -218,6 +244,9 @@ const DatePickerPro = defineComponent({
         if (config.value?.type === DateTypeEnum.Span) {
           rangeValue.value = curValue || curDefaultValue
         }
+      },
+      {
+        immediate: true
       }
     )
 
@@ -229,7 +258,7 @@ const DatePickerPro = defineComponent({
     const renderDatePicker = () => (
       <DatePicker
         placeholder="请选择"
-        defaultValue={defaultValueCache.value}
+        defaultValue={selectDefaultValue.value}
         {...attrs}
         {...dateMergedProps.value}
         picker={config.value?.picker}
@@ -290,17 +319,26 @@ const DatePickerPro = defineComponent({
     const handleRangeSingleStartChange: CommonProps<Dayjs>['onChange'] = (value) => {
       const range = [value || undefined, rangeValue.value?.[1]] as [Dayjs, Dayjs]
       const dateString = range.map(v => v?.format(config.value?.format)) as [string, string]
-      rangeValue.value = range
-      rangeSingleMergedProps.value.onChange?.(range, dateString)
-      emit('update:value', range)
+      const _range = isEmptyRange(range) ? null : range
+      rangeValue.value = _range
+      rangeSingleMergedProps.value.onChange?.(_range, dateString)
+      emit('update:value', _range)
+      formItemContext.onFieldChange()
     }
 
     const handleRangeSingleEndChange: CommonProps<Dayjs>['onChange'] = (value) => {
       const range = [rangeValue.value?.[0], value || undefined] as [Dayjs, Dayjs]
       const dateString = range.map(v => v?.format(config.value?.format)) as [string, string]
-      rangeValue.value = range
-      rangeSingleMergedProps.value.onChange?.(range, dateString)
-      emit('update:value', range)
+      const _range = isEmptyRange(range) ? null : range
+      rangeValue.value = _range
+      rangeSingleMergedProps.value.onChange?.(_range, dateString)
+      emit('update:value', _range)
+      formItemContext.onFieldChange()
+    }
+
+    const handleRangeSingleBlur: CommonProps<Dayjs>['onBlur'] = () => {
+      emit('blur')
+      formItemContext.onFieldBlur()
     }
 
     const handleRangeSingleStartDisabledDate = (current: Dayjs) => {
@@ -326,39 +364,43 @@ const DatePickerPro = defineComponent({
 
       return tooEarly || tooLate
     }
-
+    
     const renderRangeSinglePicker = () => (
       <div
         {...attrs}
         class={classNames(`${prefixCls.value}-pro-range-single`, attrs.class)}
       >
-        <DatePicker
-          placeholder="请选择"
-          {...rangeSingleMergedProps.value}
-          value={rangeValue.value?.[0]}
-          // defaultValue={rangeSingleMergedProps.value?.defaultValue?.[0]}
-          onChange={handleRangeSingleStartChange}
-          picker={config.value?.picker}
-          showTime={config.value?.showTime && { format: config.value.showTime }}
-          format={config.value?.format}
-          disabledDate={handleRangeSingleStartDisabledDate}
-          class={rangeSingleMergedPickerClass.value}
-          v-slots={{ ...slots }}
-        />
+        <FormItemRest>
+          <DatePicker
+            placeholder="请选择"
+            {...rangeSingleMergedProps.value}
+            value={rangeValue.value?.[0]}
+            onChange={handleRangeSingleStartChange}
+            onBlur={handleRangeSingleBlur}
+            picker={config.value?.picker}
+            showTime={config.value?.showTime && { format: config.value.showTime }}
+            format={config.value?.format}
+            disabledDate={handleRangeSingleStartDisabledDate}
+            class={rangeSingleMergedPickerClass.value}
+            v-slots={{ ...slots }}
+          />
+        </FormItemRest>
         <div class={`${prefixCls.value}-pro-range-single-divider`} />
-        <DatePicker
-          placeholder="请选择"
-          {...rangeSingleMergedProps.value}
-          value={rangeValue.value?.[1]}
-          // defaultValue={rangeSingleMergedProps.value?.defaultValue?.[1]}
-          onChange={handleRangeSingleEndChange}
-          picker={config.value?.picker}
-          showTime={config.value?.showTime && { format: config.value.showTime }}
-          format={config.value?.format}
-          disabledDate={handleRangeSingleEndDisabledDate}
-          class={rangeSingleMergedPickerClass.value}
-          v-slots={{ ...slots }} 
-        />
+        <FormItemRest>
+          <DatePicker
+            placeholder="请选择"
+            {...rangeSingleMergedProps.value}
+            value={rangeValue.value?.[1]}
+            onChange={handleRangeSingleEndChange}
+            onBlur={handleRangeSingleBlur}
+            picker={config.value?.picker}
+            showTime={config.value?.showTime && { format: config.value.showTime }}
+            format={config.value?.format}
+            disabledDate={handleRangeSingleEndDisabledDate}
+            class={rangeSingleMergedPickerClass.value}
+            v-slots={{ ...slots }} 
+          />
+        </FormItemRest>
       </div>
     )
 
