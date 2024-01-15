@@ -43,10 +43,11 @@ export default defineComponent<BodyRowProps<unknown>>({
     'getRowKey',
     'childrenColumnName',
   ] as any,
-  setup(props, { attrs }) {
+  setup(props, { attrs, expose }) {
     const tableContext = useInjectTable();
     const bodyContext = useInjectBody();
     const expandRended = ref(false);
+    const rowNodeRef = ref<HTMLDivElement>();
 
     const expanded = computed(() => props.expandedKeys && props.expandedKeys.has(props.recordKey));
 
@@ -98,6 +99,20 @@ export default defineComponent<BodyRowProps<unknown>>({
 
     const columnsKey = computed(() => getColumnsKey(bodyContext.flattenColumns));
 
+    const scrollIntoView = () => {
+      // @ts-ignore
+      if (rowNodeRef.value?.scrollIntoViewIfNeeded) {
+        // @ts-ignore
+        rowNodeRef.value?.scrollIntoViewIfNeeded?.(false);
+      } else {
+        rowNodeRef.value?.scrollIntoView?.();
+      }
+    };
+
+    expose({
+      scrollIntoView,
+    });
+
     return () => {
       const { class: className, style } = attrs as any;
       const {
@@ -120,6 +135,7 @@ export default defineComponent<BodyRowProps<unknown>>({
         <RowComponent
           {...additionalProps.value}
           data-row-key={rowKey}
+          ref={rowNodeRef}
           class={classNames(
             className,
             `${prefixCls}-row`,

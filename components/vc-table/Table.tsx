@@ -194,7 +194,7 @@ export default defineComponent<TableProps<DefaultRecordType>>({
   ] as any,
   slots: ['title', 'footer', 'summary', 'emptyText'],
   emits: ['expand', 'expandedRowsChange', 'updateInternalRefs', 'update:expandedRowKeys'],
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots, emit, expose }) {
     const mergedData = computed(() => props.data || EMPTY_DATA);
     const hasData = computed(() => !!mergedData.value.length);
     // ==================== Customize =====================
@@ -617,8 +617,11 @@ export default defineComponent<TableProps<DefaultRecordType>>({
     });
 
     // Body
+    const bodyRef = ref();
+    const scrollIntoView = (key: string | number) => bodyRef.value?.scrollIntoView?.(key);
     const bodyTable = () => (
       <Body
+        ref={bodyRef}
         data={mergedData.value}
         measureColumnWidth={fixHeader.value || horizonScroll.value || stickyState.value.isSticky}
         expandedKeys={mergedExpandedKeys.value}
@@ -636,6 +639,11 @@ export default defineComponent<TableProps<DefaultRecordType>>({
         columns={flattenColumns.value}
       />
     );
+
+    expose({
+      scrollIntoView,
+    });
+
     return () => {
       const {
         prefixCls,

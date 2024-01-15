@@ -33,7 +33,7 @@ export default defineComponent<BodyProps<any>>({
     'childrenColumnName',
   ] as any,
   slots: ['emptyNode'],
-  setup(props, { slots }) {
+  setup(props, { slots, expose }) {
     const resizeContext = useInjectResize();
     const tableContext = useInjectTable();
     const bodyContext = useInjectBody();
@@ -58,6 +58,21 @@ export default defineComponent<BodyProps<any>>({
         }, 100);
       },
     });
+    
+    const rowRefs = {};
+    flattenData.value?.forEach((item, idx) => {
+      const key = props.getRowKey(item.record, idx);
+      rowRefs[key] = ref<HTMLDivElement>();
+    });
+    
+    const scrollIntoView = (key: string | number) => {
+      rowRefs[key]?.value?.scrollIntoView();
+    };
+
+    expose({
+      scrollIntoView,
+    });
+
     return () => {
       const {
         data,
@@ -88,6 +103,7 @@ export default defineComponent<BodyProps<any>>({
               rowKey={key}
               record={record}
               recordKey={key}
+              ref={rowRefs[key]}
               index={idx}
               renderIndex={renderIndex}
               rowComponent={trComponent}

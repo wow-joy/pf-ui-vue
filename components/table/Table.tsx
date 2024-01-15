@@ -295,6 +295,9 @@ const InteralTable = defineComponent<
     });
     const screens = useBreakpoint();
 
+    const rcTableRef = ref();
+    const scrollIntoView = (key: string | number) => rcTableRef.value?.scrollIntoView?.(key);
+
     const mergedColumns = computed(() => {
       const matched = new Set(
         Object.keys(screens.value).filter((m: Breakpoint) => screens.value[m]),
@@ -586,6 +589,7 @@ const InteralTable = defineComponent<
     };
     expose({
       selectedKeySet,
+      scrollIntoView,
     });
 
     const indentSize = computed(() => {
@@ -681,6 +685,7 @@ const InteralTable = defineComponent<
             <RcTable
               {...attrs}
               {...tableProps}
+              ref={rcTableRef}
               expandedRowKeys={props.expandedRowKeys as any}
               defaultExpandedRowKeys={props.defaultExpandedRowKeys as any}
               expandIconColumnIndex={expandIconColumnIndex.value}
