@@ -166,7 +166,7 @@ const SelectPro = defineComponent({
           pattern: 'first',
           toneType: 'none',
           separator: '',
-          removeNonZh: true,
+          // removeNonZh: true,
           mode: props.surname ? 'surname' : 'normal'
         })
         return zhInitials?.includes(inputValue)
