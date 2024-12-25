@@ -55,3 +55,9 @@ If you are in a bad network environment，you can try other registries and tools
 
 - [Vue](https://vuejs.org/)
 - [Ant Design Of React](http://ant.design/)
+
+
+### 发布
+1. 改版本号
+2. yarn run dist
+3. yarn run compile
