@@ -499,7 +499,7 @@ export default defineComponent({
       titleNode = titleNode === undefined ? defaultTitle : titleNode;
 
       // todo: 弹框的提示也有可能来自slot ellipsisTitle
-      const $title = _ellipsis 
+      const $title = _ellipsis
         ? (
           <div class={`${prefixCls}-node-title-ellipsis`}>
             <div class={`${prefixCls}-node-title-ellipsis-container`}>
@@ -513,7 +513,7 @@ export default defineComponent({
             </div>
           </div>
         )
-        : <span>{titleNode}</span>;
+        : <span class={`${prefixCls}-node-title-span`}>{titleNode}</span>;
 
       return (
         <span

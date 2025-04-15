@@ -61,3 +61,4 @@ If you are in a bad network environment，you can try other registries and tools
 1. 改版本号
 2. yarn run dist
 3. yarn run compile
+4. npm publish
