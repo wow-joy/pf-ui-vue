@@ -103,6 +103,7 @@ export const formItemProps = () => ({
   messageVariables: { type: Object as PropType<Record<string, string>> },
   hidden: Boolean,
   noStyle: Boolean,
+  spaceBetween: { type: Boolean, default: false },
 });
 
 export type FormItemProps = Partial<ExtractPropTypes<ReturnType<typeof formItemProps>>>;
@@ -417,6 +418,7 @@ export default defineComponent({
                   prefixCls={prefixCls.value}
                   onClick={onLabelClick}
                   label={props.label ?? slots.label?.()}
+                  spaceBetween={props.spaceBetween}
                 />
                 {/* Input Group */}
                 <FormItemInput

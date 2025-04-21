@@ -90,6 +90,7 @@ cover: https://gw.alipayobjects.com/zos/alicdn/ORmcdeaoO/Form.svg
 | validateStatus | 校验状态，如不设置，则会根据校验规则自动生成，可选：'success' 'warning' 'error' 'validating' | string |  |  |
 | validateTrigger | 设置字段校验的时机 | string \| string\[] | `change` |  |
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol | [object](/components/grid-cn/#Col) |  |  |
+| spaceBetween | label 文字分散显示 | boolean | false | 1.0.58 以上 |
 
 ### 注意：
 

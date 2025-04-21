@@ -1,6 +1,7 @@
 <template>
   <demo-sort :cols="1">
     <Basic />
+    <BasicText />
     <LableWidth />
     <HorizontalLogin />
     <Layout />
@@ -30,6 +31,7 @@
 import { defineComponent } from 'vue';
 import advancedSearchVue from './advanced-search.vue';
 import Basic from './basic.vue';
+import BasicText from './basic-text.vue';
 import CustomValidation from './custom-validation.vue';
 import DynamicFormItem from './dynamic-form-item.vue';
 import dynamicFormItemsComplexVue from './dynamic-form-items-complex.vue';
@@ -62,6 +64,7 @@ export default defineComponent({
     timeRelatedControlsVue,
     validateOtherVue,
     Basic,
+    BasicText,
     CustomValidation,
     DynamicFormItem,
     HorizontalLogin,

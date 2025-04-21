@@ -20,10 +20,11 @@ export interface FormItemLabelProps {
   required?: boolean;
   prefixCls: string;
   onClick: Function;
+  spaceBetween: boolean;
 }
 
 const FormItemLabel: FunctionalComponent<FormItemLabelProps> = (props, { slots, emit, attrs }) => {
-  const { prefixCls, htmlFor, labelCol, labelAlign, colon, required, requiredMark } = {
+  const { prefixCls, htmlFor, labelCol, labelAlign, colon, required, requiredMark, spaceBetween } = {
     ...props,
     ...attrs,
   };
@@ -47,8 +48,8 @@ const FormItemLabel: FunctionalComponent<FormItemLabelProps> = (props, { slots, 
     mergedLabelAlign === 'left' && `${labelClsBasic}-left`,
     mergedLabelCol.class,
     {
-      [`${labelClsBasic}-wrap`]: !!labelWrap.value,
-    },
+      [`${labelClsBasic}-wrap`]: !!labelWrap.value,     
+    }
   );
 
   let labelChildren = label;
@@ -58,6 +59,10 @@ const FormItemLabel: FunctionalComponent<FormItemLabelProps> = (props, { slots, 
   // Remove duplicated user input colon
   if (haveColon && typeof label === 'string' && (label as string).trim() !== '') {
     labelChildren = (label as string).replace(/[:|：]\s*$/, '');
+  }
+
+  if (typeof label === 'string' && spaceBetween) {
+    labelChildren = <span class={`${prefixCls}-item-space-between`}>{labelChildren}</span>
   }
 
   labelChildren = (
@@ -82,6 +87,7 @@ const FormItemLabel: FunctionalComponent<FormItemLabelProps> = (props, { slots, 
     [`${prefixCls}-item-required`]: required,
     [`${prefixCls}-item-required-mark-optional`]: requiredMark === 'optional',
     [`${prefixCls}-item-no-colon`]: !computedColon,
+    [`${prefixCls}-item-max-w`]: !!spaceBetween,
   });
 
   return (
@@ -93,6 +99,7 @@ const FormItemLabel: FunctionalComponent<FormItemLabelProps> = (props, { slots, 
         onClick={e => emit('click', e)}
       >
         {required && requiredMark && <RequireFilled style={{ color: '#EA2C43', fontSize: '8px', marginRight: '4px' }} />}
+        {(!required || !requiredMark ) && spaceBetween && <span class={`${prefixCls}-item-place`}>&nbsp;</span> }
         {labelChildren}
       </label>
     </Col>
