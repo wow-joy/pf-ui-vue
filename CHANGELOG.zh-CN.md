@@ -11,6 +11,16 @@
 
 ---
 
+## 1.0.58
+`2024-04-21`
+- radio group 新增一种 button-style="minor-simple"
+
+## 1.0.50
+`2024-05-15`
+- 新增 select pro, data pro 高阶业务组件
+
+
+
 ## 1.0.34
 `2023-05-15`
 - DatePicker 增加 focusValue 属性

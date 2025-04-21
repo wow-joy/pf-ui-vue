@@ -4,7 +4,7 @@ export interface RadioChangeEventTarget extends RadioProps {
   checked: boolean;
 }
 
-export type RadioGroupButtonStyle = 'outline' | 'solid' | 'simple';
+export type RadioGroupButtonStyle = 'outline' | 'solid' | 'simple' | 'minor-simple';
 export type RadioGroupOptionType = 'default' | 'button';
 
 export interface RadioChangeEvent {
