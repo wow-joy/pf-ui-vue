@@ -14,6 +14,7 @@
 ## 1.0.58
 `2024-04-21`
 - radio group 新增一种 button-style="minor-simple"
+- form item label 支持文字分散显示(spaceBetween属性)
 
 ## 1.0.50
 `2024-05-15`

@@ -2,7 +2,7 @@
 ---
 order: 0
 title:
-  zh-CN: 基本使用
+  zh-CN: label 文字分散显示
   en-US: Basic Usage
 ---
 
