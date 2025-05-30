@@ -455,3 +455,5 @@ export { default as ColorPicker, default as PfColorPicker } from './color-picker
 export { default as PfSelectPro, default as SelectPro } from './select-pro';
 
 export { default as PfDatePickerPro, default as DatePickerPro } from './date-picker-pro';
+
+export { default as PfSelectTable, default as SelectTable } from './select-table';
