@@ -174,6 +174,13 @@ const SelectTable = defineComponent({
       }
     };
     const handleDeselect = (v: any) => {
+      if (!isMultiple.value) {
+        emit?.(
+          `update:value`,
+          undefined,
+        );
+        return;
+      }
       if (v) {
         let toggleArr = [...value.value].filter((x: any) => x[props.valueKey] !== v);
         value.value = [...toggleArr];
