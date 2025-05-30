@@ -44,7 +44,7 @@ const SelectTable = defineComponent({
   }),
   emits: ['change', 'search', 'update:value'],
   setup(props, { attrs, emit }) {
-    const { prefixCls, direction, configProvider, size, getPrefixCls } = useConfigInject(
+    const { prefixCls } = useConfigInject(
       'select-table',
       props,
     );
@@ -105,6 +105,7 @@ const SelectTable = defineComponent({
       nextTick(() => {
         searchValue.value = '';
       });
+      e.preventDefault()
     };
 
     const handleMouseDouwn = (e: MouseEvent) => e.preventDefault();
