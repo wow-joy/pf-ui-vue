@@ -40,6 +40,14 @@ pf-select-table 部分原生属性会失效.
         title: '性别',
         width: 120,
       },
+      {
+        label: 'age',
+        title: '年龄',
+        width: 120,
+        render: (row: any) => {
+          return row.age + '岁';
+        },
+      },
     ]"
     valueKey="id"
     labelKey="name"
@@ -123,9 +131,32 @@ pf-select-table 部分原生属性会失效.
     ]"
     valueKey="id"
   ></pf-select-table>
+  无选项多选默认值:
+  <pf-select-table
+    v-model:value="value3"
+    style="width: 100%"
+    placeholder="Please select"
+    showArrow
+    allowClear
+    mode="multiple"
+    :options="[...baseOptions1]"
+    @change="handleChange3"
+    :tableDrop="[
+      {
+        label: 'name',
+        title: '姓名',
+        width: 100,
+      },
+      {
+        label: 'age',
+        title: '性别',
+        width: 120,
+      },
+    ]"
+    valueKey="id"
+  ></pf-select-table>
 </template>
 <script lang="ts">
-import { set } from 'lodash';
 import { defineComponent, nextTick, ref, unref, watch } from 'vue';
 export default defineComponent({
   setup() {
@@ -137,14 +168,22 @@ export default defineComponent({
     const value = ref('a1');
     const value1 = ref(['b2', 'c3']);
     const value2 = ref(['b2', 'c3']);
+    const value3 = ref(['b2', 'c3']);
 
-    watch(() => value.value, (v) => {
-      console.log(`value changed: ${v}`);
-    });
+    watch(
+      () => value.value,
+      v => {
+        console.log(`value changed: ${v}`);
+      },
+    );
     const baseOptions = ref([...data]);
+    const baseOptions1 = ref([]);
     const handleChange = (v: any) => {
       console.log(`selected ${v?.id}`);
       console.log(`selected value ${value.value}`);
+      setTimeout(() => {
+        value.value = 'e5';
+      }, 3000);
       nextTick(() => {
         // value.value='b2';
         console.log(`selected ${value.value}`);
@@ -158,11 +197,18 @@ export default defineComponent({
       });
     };
     const handleChange2 = (v: any) => {
-      console.log(`handleChange1 selected ${v?.map((item: any) => item.id).join(', ')}`);
+      console.log(`handleChange2 selected ${v?.map((item: any) => item.id).join(', ')}`);
       nextTick(() => {
         // value1.value=['b2','c3'];
-        console.log(`handleChange1 selected value1: ${value1.value?.join(', ')}`);
+        console.log(`handleChange2 selected value1: ${value2.value?.join(', ')}`);
       });
+    };
+    const handleChange3 = (v: any) => {
+      console.log(`handleChange3 selected ${v?.map((item: any) => item.id).join(', ')}`);
+      setTimeout(() => {
+        baseOptions1.value = [...data];
+      }, 3000);
+      
     };
     const filter = (v: any) => {
       if (v === '' || v === undefined) {
@@ -196,6 +242,9 @@ export default defineComponent({
       baseOptions,
       value2,
       filter2,
+      value3,
+      handleChange3,
+      baseOptions1,
     };
   },
 });

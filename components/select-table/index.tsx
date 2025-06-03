@@ -8,6 +8,10 @@ import { initDefaultProps } from '../_util/props-util';
 import InfoTwoTone from '@pf-ui/pf-icons-vue/InfoTwoTone';
 import classNames from '../_util/classNames';
 
+type RawValue = string | number;
+
+type SelectValue = RawValue | RawValue[] | undefined;
+
 function toggleArrayItem(arr: any[], row: any, key: string) {
   const index = arr.findIndex((item: any) => item[key] === row[key]);
   if (index !== -1) {
@@ -21,10 +25,10 @@ export interface TableDrop {
   label: string;
   title: string;
   width: number;
-  render: any;
+  render:  (o: any) => any;
 }
 export const selectTableProps = () => ({
-  value: Object as PropType<any>,
+  value: [Array, Object, String, Number] as PropType<SelectValue>,
   ...selectProps,
   mode: String as PropType<'multiple' | 'tags' | 'SECRET_COMBOBOX_MODE_DO_NOT_USE'>,
   tableDrop: Array as PropType<TableDrop[]>,
@@ -44,16 +48,17 @@ const SelectTable = defineComponent({
   }),
   emits: ['change', 'search', 'update:value'],
   setup(props, { attrs, emit }) {
-    const { prefixCls } = useConfigInject(
-      'select-table',
-      props,
-    );
+    const { prefixCls } = useConfigInject('select-table', props);
     const isMultiple = computed(() => {
       return props?.mode === 'multiple' || props?.mode === 'tags';
     });
     const value = ref<any | undefined>(
       isMultiple.value
-        ? [...props.options.filter(x => props?.value?.includes(x[props.valueKey]))]
+        ? [
+            ...(props.options && props.options.length >0 ? props.options.filter(x =>
+              Array.isArray(props?.value) ? props?.value?.includes(x[props.valueKey]) : false,
+            ): Array.isArray(props?.value)? props?.value?.map((x: any) => ({ [props.valueKey]: x, [props.labelKey]: x })) : []),
+          ]
         : props.options.find(x => x[props.valueKey] === props?.value),
     );
     const searchValue = ref('');
@@ -61,14 +66,22 @@ const SelectTable = defineComponent({
       () => props.value,
       v => {
         if (v === null || v === undefined) {
-          value.value = isMultiple.value?[] :undefined;
+          value.value = isMultiple.value ? [] : undefined;
           return;
         }
         if (isMultiple.value) {
           let valueArr = [...value.value].map((x: any) => x[props.valueKey]);
-          if (valueArr.join() !== v.join()) {
+          if (Array.isArray(v) && valueArr.join() !== v.join()) {
             let newArr = [...v]?.filter((x: any) => !valueArr.includes(x));
             let arr = props.options.filter(x => newArr?.includes(x[props.valueKey]));
+            let arrKey = arr.map((x: any) => x[props.valueKey]);
+            console.log('arrKey', arrKey, newArr);
+            // 无下拉options, 也要显示value
+            newArr.forEach((x:any) => {
+              if (!arrKey.includes(x)) {
+                arr.push({[props.valueKey]: x, [props.labelKey]: x});
+              }
+            })
             let delArr = valueArr.filter((x: any) => !v.includes(x));
             value.value = [
               [...value.value].filter((x: any) => !delArr.includes(x[props.valueKey])),
@@ -105,7 +118,7 @@ const SelectTable = defineComponent({
       nextTick(() => {
         searchValue.value = '';
       });
-      e.preventDefault()
+      e.preventDefault();
     };
 
     const handleMouseDouwn = (e: MouseEvent) => e.preventDefault();
@@ -140,6 +153,7 @@ const SelectTable = defineComponent({
                       })}
                       onClick={(e: MouseEvent) => handleSelectRowClick(e, item)}
                       onMousedown={handleMouseDouwn}
+                      key={item[props.valueKey] + '-' + index}
                     >
                       {props.tableDrop.map((drop: TableDrop) => (
                         <div
@@ -147,7 +161,7 @@ const SelectTable = defineComponent({
                           style={{ minWidth: `${drop.width || 120}px` }}
                           title={item[drop.label]}
                         >
-                          {item[drop.label]}
+                          {drop.render ? drop.render(item) : item[drop.label]}
                         </div>
                       ))}
                     </div>
@@ -175,10 +189,7 @@ const SelectTable = defineComponent({
     };
     const handleDeselect = (v: any) => {
       if (!isMultiple.value) {
-        emit?.(
-          `update:value`,
-          undefined,
-        );
+        emit?.(`update:value`, undefined);
         return;
       }
       if (v) {
@@ -199,6 +210,14 @@ const SelectTable = defineComponent({
         emit('search', undefined);
       }
     };
+    const otherProps: any = {};
+
+    if (props.showSearch) {
+      otherProps.onSearch = (value: string) => {
+        searchValue.value = value;
+        emit('search', value);
+      };
+    }
 
     return () => (
       <>
@@ -207,12 +226,10 @@ const SelectTable = defineComponent({
           {...attrs}
           mode={props.mode}
           open={open.value}
+          filterOption={false}
           searchValue={searchValue.value}
           showSearch={props.showSearch || false}
-          onSearch={(value: string) => {
-            searchValue.value = value;
-            emit('search', value);
-          }}
+          {...otherProps}
           onDropdownVisibleChange={_handleDropdownVisibleChange}
           defaultActiveFirstOption={false}
           onChange={handleChange}
