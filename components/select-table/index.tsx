@@ -25,7 +25,7 @@ export interface TableDrop {
   label: string;
   title: string;
   width: number;
-  render:  (o: any) => any;
+  render: (o: any) => any;
 }
 export const selectTableProps = () => ({
   value: [Array, Object, String, Number] as PropType<SelectValue>,
@@ -55,11 +55,17 @@ const SelectTable = defineComponent({
     const value = ref<any | undefined>(
       isMultiple.value
         ? [
-            ...(props.options && props.options.length >0 ? props.options.filter(x =>
-              Array.isArray(props?.value) ? props?.value?.includes(x[props.valueKey]) : false,
-            ): Array.isArray(props?.value)? props?.value?.map((x: any) => ({ [props.valueKey]: x, [props.labelKey]: x })) : []),
+            ...(props.options && props.options.length > 0
+              ? props.options.filter(x =>
+                  Array.isArray(props?.value) ? props?.value?.includes(x[props.valueKey]) : false,
+                )
+              : Array.isArray(props?.value)
+              ? props?.value?.map((x: any) => ({ [props.valueKey]: x, [props.labelKey]: x }))
+              : []),
           ]
-        : props.options.find(x => x[props.valueKey] === props?.value),
+        : props.options && props.options.length > 0
+        ? props.options.find(x => x[props.valueKey] === props?.value)
+        : { [props.valueKey]: props?.value, [props.labelKey]: props?.value },
     );
     const searchValue = ref('');
     watch(
@@ -75,13 +81,12 @@ const SelectTable = defineComponent({
             let newArr = [...v]?.filter((x: any) => !valueArr.includes(x));
             let arr = props.options.filter(x => newArr?.includes(x[props.valueKey]));
             let arrKey = arr.map((x: any) => x[props.valueKey]);
-            console.log('arrKey', arrKey, newArr);
             // 无下拉options, 也要显示value
-            newArr.forEach((x:any) => {
+            newArr.forEach((x: any) => {
               if (!arrKey.includes(x)) {
-                arr.push({[props.valueKey]: x, [props.labelKey]: x});
+                arr.push({ [props.valueKey]: x, [props.labelKey]: x });
               }
-            })
+            });
             let delArr = valueArr.filter((x: any) => !v.includes(x));
             value.value = [
               [...value.value].filter((x: any) => !delArr.includes(x[props.valueKey])),
@@ -166,6 +171,13 @@ const SelectTable = defineComponent({
                       ))}
                     </div>
                   ))}
+                  {props.options.length >= 50 ? (
+                    <div class={classNames(`${prefixCls.value}-drop-footer`)}>
+                      只显示前50条结果，请完善搜索关键字{' '}
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
             ) : null}

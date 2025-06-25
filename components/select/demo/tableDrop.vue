@@ -131,6 +131,29 @@ pf-select-table 部分原生属性会失效.
     ]"
     valueKey="id"
   ></pf-select-table>
+  无选项单选默认值:
+  <pf-select-table
+    v-model:value="value"
+    style="width: 100%"
+    placeholder="Please select"
+    showArrow
+    allowClear
+    :options="[]"
+    @change="handleChange3"
+    :tableDrop="[
+      {
+        label: 'name',
+        title: '姓名',
+        width: 100,
+      },
+      {
+        label: 'age',
+        title: '性别',
+        width: 120,
+      },
+    ]"
+    valueKey="id"
+  ></pf-select-table>
   无选项多选默认值:
   <pf-select-table
     v-model:value="value3"
@@ -160,7 +183,7 @@ pf-select-table 部分原生属性会失效.
 import { defineComponent, nextTick, ref, unref, watch } from 'vue';
 export default defineComponent({
   setup() {
-    let data = [...Array(25)].map((_, i) => ({
+    let data = [...Array(50)].map((_, i) => ({
       id: (i + 10).toString(36) + (i + 1),
       name: (i + 10).toString(36) + (i + 1),
       age: (i + 10).toString(36) + (i + 1),
@@ -208,7 +231,7 @@ export default defineComponent({
       setTimeout(() => {
         baseOptions1.value = [...data];
       }, 3000);
-      
+
     };
     const filter = (v: any) => {
       if (v === '' || v === undefined) {
