@@ -472,17 +472,19 @@
     border-radius: @border-radius-base;
     // box-shadow: @box-shadow-base;
     position: relative;
+    border: 1px solid @C7;
+    border-radius: @border-radius-base;
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      border: 1px solid @C7;
-      border-radius: @border-radius-base;
-    }
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   top: 0;
+    //   bottom: 0;
+    //   right: 0;
+    //   left: 0;
+    //   border: 1px solid @C7;
+    //   border-radius: @border-radius-base;
+    // }
 
     // Reset menu
     .@{dropdown-prefix-cls}-menu {
